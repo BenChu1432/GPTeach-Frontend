@@ -35,6 +35,7 @@ export default function ChatbotScreen({route}){
     } = useAppContext();
 
     const handleOpenaiAPICall=()=>{
+        console.log("route.params.paramKey:"+route.params.paramKey)
         postOpenai(route.params.paramKey,route.params.navigationPosition,selectedTheme,selectedLevelOfVocabulary,selectedQuestionType,numOfQuestions,numOfParagraphs,setIsNotes,setOpenaiResponse,setError)
     }
 

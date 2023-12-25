@@ -11,30 +11,33 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 type Props={
     name:string;
-    MaterialCommunityIcons?:string;
-    FontAwesome5?:string;
-    Entypo?:string;
-    Ionicons?:string;
-    size: number;
+    topRotation?:number;
+    bottomRotation?:number;
+    topMaterialCommunityIcons?:string;
+    bottomMaterialCommunityIcons?:string;
+    topSize?: number;
+    bottomSize?: number;
     colors: string;
-    position: number;
+    topRight?: number;
+    topTop?:number;
+    bottomLeft?:number;
+    bottomBottom?:number;
     navigate?:string;
     navigationPosition?:string;
+    marginTop?:number;
 }
 
-export default function ThemeCard (props:Props){
+export default function CustomizedVsStandardizedCard (props:Props){
     const navigation = useNavigation();
     return (
         // <View style={{height: "100%", width:"100%", display:"flex", flexDirection:"column"}}>
         <TouchableOpacity
-            style={[styles.card, {backgroundColor: props.colors}]}
-            onPress={()=>{navigation.navigate(props.navigate, {navigationPosition:props.navigationPosition?props.navigationPosition:props.navigate});}}
+            style={[styles.card, {backgroundColor: props.colors,marginTop:props.marginTop}]}
+            onPress={()=>{navigation.navigate(props.navigate, {navigationPosition:props.navigationPosition})}}
         >
             <Text style={styles.text}>{props.name}</Text>
-            {Entypo&&<Entypo name={props.Entypo} size={props.size} color="white" style={[styles.icon,{right:props.position}]}/>}
-            {MaterialCommunityIcons&&<MaterialCommunityIcons name={props.MaterialCommunityIcons} size={props.size} color="white" style={[styles.icon,{right:props.position}]}/>}
-            {Ionicons&&<Ionicons name={props.Ionicons} size={props.size} color="white" style={[styles.icon,{right:props.position}]}/>}
-            {FontAwesome5&&<FontAwesome5 name={props.FontAwesome5} size={props.size} color="white" style={[styles.icon,{right:props.position}]}/>}
+            {props.topMaterialCommunityIcons&&<MaterialCommunityIcons name={props.topMaterialCommunityIcons} size={props.topSize} color="white" style={[styles.topIcon,{right:props.topRight, top:props.topTop, transform: [{ rotate: `${props.topRotation?props.topRotation:0}deg`}]}]}/>}
+            {props.bottomMaterialCommunityIcons&&<MaterialCommunityIcons name={props.bottomMaterialCommunityIcons} size={props.bottomSize} color="white" style={[styles.bottomIcon,{left:props.bottomLeft,bottom:props.bottomBottom,transform: [{ rotate: `${props.bottomRotation?props.bottomRotation:0}deg`}]}]}/>}
         </TouchableOpacity>
         // </View>
 
@@ -46,9 +49,9 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 20,
         marginBottom: 30,
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent:"center",
-        height: 152,
+        height: 221,
         width: 357,
         alignSelf: 'center',
     },
@@ -60,9 +63,10 @@ const styles = StyleSheet.create({
         textShadowOffset: { width: -1, height: 1 },
         textShadowRadius: 1,
     },
-    icon:{
+    topIcon:{
+        position:"absolute",
+    },
+    bottomIcon:{
         position:"absolute",
     }
-
 });
-

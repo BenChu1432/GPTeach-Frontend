@@ -16,7 +16,9 @@ export default function NavigationBar(props){
     const navigation = useNavigation();
     const route = useRoute();
 
-    const [title,setTitle]=useState<string|undefined>("")
+    useEffect(() => {
+        console.log(route.params)
+    }, []);
 
 
     return(
@@ -34,7 +36,7 @@ export default function NavigationBar(props){
                         </View>
                     </View>}
                 </View>
-                {route.name!=="Setting"&&route.name!=="Main"&&<View style={styles.rightContainer}>
+                {route.name!=="Setting"&&route.name!=="Main"&&route.params.navigationPosition!=="Interface"&&route.params.navigationPosition!=="Customized Vocab"&&route.params.navigation!=="customized"&&<View style={styles.rightContainer}>
                     {/*<FontAwesome name="search" size={24} color="black" style={styles.navigationButton}/>*/}
                     <TouchableOpacity onPress={()=>{navigation.navigate("Setting")}}>
                         <Ionicons name="settings-sharp" size={28} color="black" style={styles.navigationButton}/>

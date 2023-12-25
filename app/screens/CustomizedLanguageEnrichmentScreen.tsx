@@ -14,8 +14,15 @@ import AppTextInput from "../components/AppTextInput";
 import questionTypesForLiteraryDevices from "../data/setting/questionsTypesForLiteraryDevices";
 import questionTypesForLanguageEnrichment from "../data/setting/questionTypesForLanguageEnrichment";
 import questionTypesForRegister from "../data/setting/questionTypesForRegister";
+import AppButton from "../components/AppButton";
+import ErrorMessage from "../components/ErrorMessage";
 
-export default function FunctionalitiesSettingScreen({route}){
+export default function CustomizedLanguageEnrichmentScreen({route,navigation}){
+    const [numberOfItemsNotDividedByFour,setNumberOfItemsNotDividedByFour]=useState<boolean|undefined>(undefined);
+    const [numberOfItemsIsZero,setNumberOfItemsIsZero]=useState<boolean|undefined>(undefined);
+    const [overWordLimit,setOverWordLimit]=useState<boolean|undefined>(undefined);
+    const [readyToSubmit,setReadyToSubmit]=useState<boolean|undefined>(undefined);
+
     const {
         currentCategory,setCurrentCategory,
         selectedLevelOfVocabulary,setSelectedLevelOfVocabulary,
@@ -25,6 +32,7 @@ export default function FunctionalitiesSettingScreen({route}){
         selectedTheme, setSelectedTheme,
         numOfParagraphs,setNumOfParagraphs,
     } = useAppContext();
+
 
     // Set default number
     const handleOnSelect=()=>{
@@ -43,28 +51,93 @@ export default function FunctionalitiesSettingScreen({route}){
             setNumOfParagraphs(5);
         }
     }
-    useEffect(()=>{
-        console.log(currentCategory)
-    },[])
+
+    const handleCheckingInput=(readyToSubmit:boolean)=>{
+        if(selectedTheme===""){
+            setNumberOfItemsIsZero(true);
+            return;
+        }else{
+            setNumberOfItemsIsZero(false);
+        }
+        let wordsArray = selectedTheme
+            .trim()
+            .split(',');
+// Counting the number of words
+        if((wordsArray.length%4)===0){
+            setNumberOfItemsNotDividedByFour(false);
+        }else{
+            setNumberOfItemsNotDividedByFour(true);
+        }
+        // set flag to see if any item exceeds 52 letters
+        let isOverFiftyTwoLetters=false;
+        wordsArray.map((item)=>{
+            console.log(item+":"+item.length)
+            if(item.length>38){
+                isOverFiftyTwoLetters=true
+            }
+        })
+        setOverWordLimit(isOverFiftyTwoLetters);
+       setReadyToSubmit(readyToSubmit);
+    }
+
+    const handleChatbotTransition=()=>{
+        handleCheckingInput(true);
+    }
+
+    useEffect(() => {
+        setSelectedTheme("")
+    }, []);
+
+    useEffect(() => {
+       if(readyToSubmit){
+           if(numberOfItemsIsZero===false&&numberOfItemsNotDividedByFour===false&&overWordLimit===false){
+               navigation.navigate("Chatbot",{paramKey:"Customized Vocab", subRoute:"Customized Vocab", navigationPosition:"Customized Vocab"});
+           }else{
+               if(selectedTheme===""){
+                   setNumberOfItemsIsZero(true);
+               }
+               let wordsArray = selectedTheme
+                   .trim()
+                   .split(',');
+// Counting the number of words
+               if((wordsArray.length%4)===0){
+                   setNumberOfItemsNotDividedByFour(false);
+               }else{
+                   setNumberOfItemsNotDividedByFour(true);
+               }
+               // set flag to see if any item exceeds 52 letters
+               let isOverThirtyEightLetters=false;
+               wordsArray.map((item)=>{
+                   console.log(item+":"+item.length)
+                   if(item.length>38){
+                       isOverThirtyEightLetters=true
+                   }
+               })
+               setOverWordLimit(isOverThirtyEightLetters);
+           }
+       }
+    }, [readyToSubmit]);
 
     return(
         <ScrollView style={styles.container}>
-            {currentCategory!=="Language Enrichment"&&currentCategory!=="Customized Language Enrichment"?
-                <>
-                    <Text style={styles.personalizedInputTitle}>{currentCategory==="Literary Devices"?"Theme/Literature":"Theme"}</Text>
-                    <View style={styles.personalizedInputContainer}>
-                        <View style={styles.personalizedInputInputContainer}>
-                            <TextInput defaultValue={selectedTheme} onChangeText={setSelectedTheme} style={styles.personalizedInput}/>
-                        </View>
+            <>
+                <Text style={styles.personalizedInputTitle}>Personalized Input</Text>
+                <View style={styles.personalizedInputContainer}>
+                    <View style={styles.personalizedInputInputContainer}>
+                        <TextInput placeholder={"e.g.beauty, ugly, fantastic, guinea pig"} defaultValue={selectedTheme} onBlur={()=>{handleCheckingInput(false)}}  onChangeText={setSelectedTheme} style={styles.personalizedInput}/>
                     </View>
-                </> :null}
+                </View>
+                {numberOfItemsNotDividedByFour&&<ErrorMessage marginLeft={30} marginTop={5} error={"The number of items must be dividable by 4."}/>}
+                {numberOfItemsIsZero&&<ErrorMessage marginLeft={30} marginTop={5} error={"You need to enter input."}/>}
+                {overWordLimit&&<ErrorMessage marginLeft={30} marginTop={5} error={"You have entered an item that exceeds 38 letters or so."}/>}
+            </>
             <Text style={styles.questionTypes}>Question Types</Text>
             <View style={styles.questionTypesContainer}>
                 <SelectList
                     setSelected={setSelectedQuestionType}
                     onSelect={()=>{handleOnSelect()}}
                     placeholder={selectedQuestionType}
-                    data={currentCategory==="Literary Devices"?questionTypesForLiteraryDevices:currentCategory==="Language Enrichment"?questionTypesForLanguageEnrichment:currentCategory==="Register"?questionTypesForRegister:questionTypes}
+                    data={questionTypesForLanguageEnrichment}
                     notFoundText={"No such a question type can be found. Feel free to enlighten us."}
                     label={"Selected Question Type"}/>
             </View>
@@ -88,22 +161,6 @@ export default function FunctionalitiesSettingScreen({route}){
                     </View>
                 </>
                 :null}
-            {selectedQuestionType==="Dialogue questions"&&currentCategory!=="Language Enrichment"?<Text style={styles.numQuestions}>Number of blanks</Text>:currentCategory==="Language Enrichment"?<Text style={styles.numQuestions}>Number of Items</Text>:selectedQuestionType==="Passage questions"?<Text style={styles.numQuestions}>Number of Blanks in Each Paragraph</Text>:<Text style={styles.numQuestions}>Number of questions</Text>}
-            <View style={styles.numQuestionsContainer}>
-                <View style={styles.numOfQuestionsContainer}>
-                    <Text style={styles.numOfQuestions}>{numOfQuestions}</Text>
-                    <Slider
-                        style={{width: 300, height: 40}}
-                        onValueChange={setNumOfQuestions}
-                        value={numOfQuestions}
-                        minimumValue={currentCategory==="Language Enrichment"?4:selectedQuestionType==="Passage questions"?2:selectedQuestionType==="Cloze-test paragraphs"?1:5}
-                        step={currentCategory==="Language Enrichment"?4:selectedQuestionType==="Passage questions"?1:selectedQuestionType==="Cloze-test paragraphs"?1:5}
-                        maximumValue={currentCategory==="Language Enrichment"?16:selectedQuestionType==="Passage questions"?5:selectedQuestionType==="Cloze-test paragraphs"?10:selectedQuestionType==="Dialogue questions"?15:selectedQuestionType==="Unscramble-the-sentence questions"?15:20}
-                        minimumTrackTintColor="015A9E"
-                        maximumTrackTintColor="#000000"
-                    />
-                </View>
-            </View>
             <Text style={styles.levelOfVocab}>Level of Difficulty in Vocabulary</Text>
             <View style={styles.levelOfVocabContainer}>
                 <SelectList
@@ -122,8 +179,11 @@ export default function FunctionalitiesSettingScreen({route}){
                     notFoundText={"No such a level can be found."}
                     label={"Selected Level"}/>
             </View>
+            <View style={styles.generateButton}>
+                <AppButton word={"Generate"} widthPercentage={30} color={colors.danger} onPress={handleChatbotTransition}/>
+            </View>
         </ScrollView>
-)}
+    )}
 
 const styles = StyleSheet.create({
     container:{
@@ -244,7 +304,7 @@ const styles = StyleSheet.create({
     personalizedInputContainer:{
         paddingLeft:20,
         paddingRight:20,
-        width:"60%",
+        width:"100%",
     },
     personalizedInputInputContainer:{
         height:45,
@@ -255,7 +315,15 @@ const styles = StyleSheet.create({
     },
     personalizedInput:{
         height:45,
-        width:"100%",
+        width:"90%",
         marginLeft:20,
+    },
+    generateButton:{
+        display: "flex",
+        width:"100%",
+        marginTop: 40,
+        marginBottom: 40,
+        justifyContent: "center",
+        alignItems:"center"
     }
 })

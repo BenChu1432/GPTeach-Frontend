@@ -22,6 +22,8 @@ import ChatbotScreen from "./app/screens/ChatbotScreen";
 import FunctionalitiesSettingScreen from "./app/screens/FunctionalitiesSettingScreen";
 import {AppProvider} from "./app/context/AppContext";
 import languageEnrichmentInputScreen from "./app/screens/LanguageEnrichmentInputScreen";
+import ThemeBasedVsCustomized from "./app/screens/ThemeBasedVsCustomized";
+import CustomizedLanguageEnrichmentScreen from "./app/screens/CustomizedLanguageEnrichmentScreen";
 
 const Stack=createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -33,14 +35,16 @@ function  MainStackNavigator() {
             <Stack.Screen name="Main" component={FoundationScreen} options={{ header: () => <NavigationBar/> }}/>
             <Stack.Screen name="LiteraryDevices" component={LibraryScreen} initialParams={{ paramKey: "Literary Devices"}} options={{ header: () => <NavigationBar/> }}/>
             <Stack.Screen name="SentenceStructure" component={SentenceStructurePickerScreen} options={{ header: () => <NavigationBar/>}}/>
-            <Stack.Screen name="LanguageEnrichment" component={LibraryScreen} initialParams={{ paramKey: "Language Enrichment"}} options={{ header: () => <NavigationBar/> }}/>
+            <Stack.Screen name="ThemebasedLanguageEnrichment" component={LibraryScreen} initialParams={{ paramKey: "Language Enrichment"}} options={{ header: () => <NavigationBar/> }}/>
             <Stack.Screen name="Register" component={LibraryScreen} initialParams={{ paramKey: "Register"}} options={{ header: () => <NavigationBar/> }}/>
             <Stack.Screen name="Grammar" component={GrammarPickerScreen} options={{ header: () => <NavigationBar/> }} />
             <Stack.Screen name="Library" component={LibraryScreen} options={{ header: () => <NavigationBar />}} />
             <Stack.Screen name="CustomizedForm" component={CustomizedFormScreen} options={{ header: () => <NavigationBar />}} />
+            <Stack.Screen name="ThemeBasedVsCustomized" component={ThemeBasedVsCustomized} initialParams={{ paramKey: "Theme-Based Vs Customized"}} options={{ header: () => <NavigationBar />}} />
             <Stack.Screen name="LanguageEnrichmentInput" component={languageEnrichmentInputScreen} options={{ header: () => <NavigationBar />}} />
             <Stack.Screen name="Chatbot" component={ChatbotScreen} options={{ header: () => <NavigationBar />}} />
             <Stack.Screen name="Setting" component={FunctionalitiesSettingScreen} options={{ header: () => <NavigationBar />}}/>
+            <Stack.Screen name="CustomizedLanguageEnrichmentScreen" component={CustomizedLanguageEnrichmentScreen} options={{ header: () => <NavigationBar />}}/>
         </Stack.Navigator>
     );
 }
