@@ -21,6 +21,7 @@ export default function CustomizedLanguageEnrichmentScreen({route,navigation}){
     const [numberOfItemsNotDividedByFour,setNumberOfItemsNotDividedByFour]=useState<boolean|undefined>(undefined);
     const [numberOfItemsIsZero,setNumberOfItemsIsZero]=useState<boolean|undefined>(undefined);
     const [overWordLimit,setOverWordLimit]=useState<boolean|undefined>(undefined);
+    const [overNumberOfitems,setOverNumberOfitems]=useState<boolean|undefined>(undefined);
     const [readyToSubmit,setReadyToSubmit]=useState<boolean|undefined>(undefined);
 
     const {
@@ -68,10 +69,16 @@ export default function CustomizedLanguageEnrichmentScreen({route,navigation}){
         }else{
             setNumberOfItemsNotDividedByFour(true);
         }
+        console.log(wordsArray.length)
+        // Over 20 items?
+        if(wordsArray.length>20){
+            setOverNumberOfitems(true)
+        }else{
+            setOverNumberOfitems(false)
+        }
         // set flag to see if any item exceeds 52 letters
         let isOverFiftyTwoLetters=false;
         wordsArray.map((item)=>{
-            console.log(item+":"+item.length)
             if(item.length>38){
                 isOverFiftyTwoLetters=true
             }
@@ -105,10 +112,16 @@ export default function CustomizedLanguageEnrichmentScreen({route,navigation}){
                }else{
                    setNumberOfItemsNotDividedByFour(true);
                }
+               // Over 20 items?
+               console.log(wordsArray.length)
+               if(wordsArray.length>20){
+                   setOverNumberOfitems(true)
+               }else{
+                   setOverNumberOfitems(false)
+               }
                // set flag to see if any item exceeds 52 letters
                let isOverThirtyEightLetters=false;
                wordsArray.map((item)=>{
-                   console.log(item+":"+item.length)
                    if(item.length>38){
                        isOverThirtyEightLetters=true
                    }
@@ -130,6 +143,7 @@ export default function CustomizedLanguageEnrichmentScreen({route,navigation}){
                 {numberOfItemsNotDividedByFour&&<ErrorMessage marginLeft={30} marginTop={5} error={"The number of items must be dividable by 4."}/>}
                 {numberOfItemsIsZero&&<ErrorMessage marginLeft={30} marginTop={5} error={"You need to enter input."}/>}
                 {overWordLimit&&<ErrorMessage marginLeft={30} marginTop={5} error={"You have entered an item that exceeds 38 letters or so."}/>}
+                {overNumberOfitems&&<ErrorMessage marginLeft={30} marginTop={5} error={"You cannot enter more than 20 items."}/>}
             </>
             <Text style={styles.questionTypes}>Question Types</Text>
             <View style={styles.questionTypesContainer}>
