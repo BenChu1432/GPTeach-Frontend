@@ -28,19 +28,34 @@ export default function FunctionalitiesSettingScreen({route}){
 
     // Set default number
     const handleOnSelect=()=>{
-        if(selectedQuestionType==="Fill-in-the-blank questions"){
-            setNumOfQuestions(15);
-        }else if(selectedQuestionType==="MC questions"){
-            setNumOfQuestions(10);
-        }else if(selectedQuestionType==="Underline-and-correct-the-error questions"){
-            setNumOfQuestions(15);
-        }else if(selectedQuestionType==="Unscramble-the-sentence questions"){
-            setNumOfQuestions(10);
-        }else if(selectedQuestionType==="Cloze-test paragraphs"){
-            setNumOfQuestions(5);
-        }else if(selectedQuestionType==="Passage questions"){
-            setNumOfQuestions(5);
-            setNumOfParagraphs(5);
+        if(currentCategory==="Language Enrichment"){
+            if(selectedQuestionType==="Fill-in-the-blank questions"){
+                setNumOfQuestions(12);
+            }else if(selectedQuestionType==="MC questions"){
+                setNumOfQuestions(12);
+            }else if(selectedQuestionType==="Underline-and-correct-the-error questions"){
+                setNumOfQuestions(8);
+            }else if(selectedQuestionType==="Cloze-test paragraphs"){
+                setNumOfQuestions(12);
+            }else if(selectedQuestionType==="Passage questions"){
+                setNumOfQuestions(12);
+                setNumOfParagraphs(5);
+            }
+        }else{
+            if(selectedQuestionType==="Fill-in-the-blank questions"){
+                setNumOfQuestions(15);
+            }else if(selectedQuestionType==="MC questions"){
+                setNumOfQuestions(10);
+            }else if(selectedQuestionType==="Underline-and-correct-the-error questions"){
+                setNumOfQuestions(15);
+            }else if(selectedQuestionType==="Unscramble-the-sentence questions"){
+                setNumOfQuestions(10);
+            }else if(selectedQuestionType==="Cloze-test paragraphs"){
+                setNumOfQuestions(5);
+            }else if(selectedQuestionType==="Passage questions"){
+                setNumOfQuestions(5);
+                setNumOfParagraphs(5);
+            }
         }
     }
     useEffect(()=>{

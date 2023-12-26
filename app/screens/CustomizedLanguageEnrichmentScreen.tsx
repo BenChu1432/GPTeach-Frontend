@@ -21,7 +21,7 @@ export default function CustomizedLanguageEnrichmentScreen({route,navigation}){
     const [numberOfItemsNotDividedByFour,setNumberOfItemsNotDividedByFour]=useState<boolean|undefined>(undefined);
     const [numberOfItemsIsZero,setNumberOfItemsIsZero]=useState<boolean|undefined>(undefined);
     const [overWordLimit,setOverWordLimit]=useState<boolean|undefined>(undefined);
-    const [overNumberOfitems,setOverNumberOfitems]=useState<boolean|undefined>(undefined);
+    const [overNumberOfItems,setOverNumberOfItems]=useState<boolean|undefined>(undefined);
     const [readyToSubmit,setReadyToSubmit]=useState<boolean|undefined>(undefined);
 
     const {
@@ -63,18 +63,24 @@ export default function CustomizedLanguageEnrichmentScreen({route,navigation}){
         let wordsArray = selectedTheme
             .trim()
             .split(',');
+        let wordItemsLength=0;
+        wordsArray.map((item)=>{
+            let word=item.trim();
+            if(word.length>0&&word!==""){
+                wordItemsLength+=1;
+            }
+        })
 // Counting the number of words
-        if((wordsArray.length%4)===0){
+        if((wordItemsLength%4)===0){
             setNumberOfItemsNotDividedByFour(false);
         }else{
             setNumberOfItemsNotDividedByFour(true);
         }
-        console.log(wordsArray.length)
         // Over 20 items?
         if(wordsArray.length>20){
-            setOverNumberOfitems(true)
+            setOverNumberOfItems(true)
         }else{
-            setOverNumberOfitems(false)
+            setOverNumberOfItems(false)
         }
         // set flag to see if any item exceeds 52 letters
         let isOverFiftyTwoLetters=false;
@@ -96,9 +102,10 @@ export default function CustomizedLanguageEnrichmentScreen({route,navigation}){
     }, []);
 
     useEffect(() => {
-       if(readyToSubmit){
-           if(numberOfItemsIsZero===false&&numberOfItemsNotDividedByFour===false&&overWordLimit===false){
+        if(readyToSubmit){
+           if(numberOfItemsIsZero===false&&numberOfItemsNotDividedByFour===false&&overWordLimit===false&&overNumberOfItems===false){
                navigation.navigate("Chatbot",{paramKey:"Customized Vocab", subRoute:"Customized Vocab", navigationPosition:"Customized Vocab"});
+               setReadyToSubmit(false);
            }else{
                if(selectedTheme===""){
                    setNumberOfItemsIsZero(true);
@@ -106,18 +113,24 @@ export default function CustomizedLanguageEnrichmentScreen({route,navigation}){
                let wordsArray = selectedTheme
                    .trim()
                    .split(',');
+               let wordItemsLength=0;
+               wordsArray.map((item)=>{
+                   let word=item.trim();
+                   if(word.length>0&&word!==""){
+                       wordItemsLength+=1;
+                   }
+               })
 // Counting the number of words
-               if((wordsArray.length%4)===0){
+               if((wordItemsLength%4)===0){
                    setNumberOfItemsNotDividedByFour(false);
                }else{
                    setNumberOfItemsNotDividedByFour(true);
                }
                // Over 20 items?
-               console.log(wordsArray.length)
                if(wordsArray.length>20){
-                   setOverNumberOfitems(true)
+                   setOverNumberOfItems(true)
                }else{
-                   setOverNumberOfitems(false)
+                   setOverNumberOfItems(false)
                }
                // set flag to see if any item exceeds 52 letters
                let isOverThirtyEightLetters=false;
@@ -127,6 +140,7 @@ export default function CustomizedLanguageEnrichmentScreen({route,navigation}){
                    }
                })
                setOverWordLimit(isOverThirtyEightLetters);
+               setReadyToSubmit(false);
            }
        }
     }, [readyToSubmit]);
@@ -143,13 +157,13 @@ export default function CustomizedLanguageEnrichmentScreen({route,navigation}){
                 {numberOfItemsNotDividedByFour&&<ErrorMessage marginLeft={30} marginTop={5} error={"The number of items must be dividable by 4."}/>}
                 {numberOfItemsIsZero&&<ErrorMessage marginLeft={30} marginTop={5} error={"You need to enter input."}/>}
                 {overWordLimit&&<ErrorMessage marginLeft={30} marginTop={5} error={"You have entered an item that exceeds 38 letters or so."}/>}
-                {overNumberOfitems&&<ErrorMessage marginLeft={30} marginTop={5} error={"You cannot enter more than 20 items."}/>}
+                {overNumberOfItems&&<ErrorMessage marginLeft={30} marginTop={5} error={"You cannot enter more than 20 items."}/>}
             </>
             <Text style={styles.questionTypes}>Question Types</Text>
             <View style={styles.questionTypesContainer}>
                 <SelectList
                     setSelected={setSelectedQuestionType}
-                    onSelect={()=>{handleOnSelect()}}
+                    onSelect={handleOnSelect}
                     placeholder={selectedQuestionType}
                     data={questionTypesForLanguageEnrichment}
                     notFoundText={"No such a question type can be found. Feel free to enlighten us."}
