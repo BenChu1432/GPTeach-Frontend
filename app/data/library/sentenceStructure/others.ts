@@ -6,26 +6,17 @@ const others = [
             { topic: "nothing but", example: "e.g. He talks about nothing but work." },
             { topic: "nothing if not", example: "e.g. The play was nothing if not entertaining." },
             { topic: "nothing more than", example: "e.g. It's nothing more than a rumor." },
-            { topic: "nothing less than", example: "e.g. Her performance was nothing less than spectacular." }
+            { topic: "nothing less than", example: "e.g. Her performance was nothing less than spectacular." },
         ],
-        list:[
-            "anything but",
-            "nothing but",
-            "nothing if not",
-            "nothing more than",
-            "nothing less than",
-        ],
+        list: ["anything but", "nothing but", "nothing if not", "nothing more than", "nothing less than"],
     },
     {
         name: "Rhetorical questions",
         content: [
             { topic: "Won't you...?", example: "e.g. It's a nice day, so won't you go for a walk?" },
-            { topic: "Why not+infinitive?", example: "e.g. It's sunny outside, so why not take a break?" }
+            { topic: "Why not+bare infinitive?", example: "e.g. It's sunny outside, so why not take a break?" },
         ],
-        list:[
-            "Won't you...?",
-            "Why not+infinitive?",
-        ]
+        list: ["Won't you...?", "Why not+infinitive?"],
     },
     // {
     //     name: "Hypophora",
@@ -51,18 +42,9 @@ const others = [
             { topic: "Gapping", example: "e.g. Some like tea; others, coffee." },
             { topic: "Sluicing", example: "e.g. Someone called, but I don't know who." },
             { topic: "Comparative deletion", example: "e.g. She is taller than I [am tall]." },
-            { topic: "Mixed ellipsis", example: "e.g. She is taller than I [am tall]."}
+            { topic: "Mixed ellipsis", example: "e.g. She is taller than I [am tall]." },
         ],
-        list:[
-            "Verb ellipsis",
-            "Noun ellipsis",
-            "Adjective ellipsis",
-            "Adverbial ellipsis",
-            "Conjunction reduction",
-            "Gapping",
-            "Sluicing",
-            "Comparative deletion",
-        ]
+        list: ["Verb ellipsis", "Noun ellipsis", "Adjective ellipsis", "Adverbial ellipsis", "Conjunction reduction", "Gapping", "Sluicing", "Comparative deletion"],
     },
     {
         name: "Inversion",
@@ -77,9 +59,9 @@ const others = [
             { topic: "Conditional Inversion", example: "e.g. Had I known, I would have come earlier." },
             { topic: "Inversion in Agreement/Disagreement", example: "e.g. So do I." },
             { topic: "Inversion in comparisons", example: "e.g. So am I." },
-            { topic: "Exclamatory Inversion", example: "e.g. What a beautiful day it is!" }
+            { topic: "Exclamatory Inversion", example: "e.g. What a beautiful day it is!" },
         ],
-        list:[
+        list: [
             "'Only' Inversion",
             "'Until' Inversion",
             "'neither/nor' Inversion",
@@ -91,21 +73,17 @@ const others = [
             "Inversion in Agreement/Disagreement",
             "Inversion in comparisons",
             "Exclamatory Inversion",
-        ]
+        ],
     },
     {
         name: "Other Structure",
         content: [
             { topic: "using dash", example: "e.g. She was the one – the only one – who knew the truth." },
             { topic: "not to mention vs let alone", example: "e.g. He can't boil water, not to mention cook dinner." },
-            { topic: "albeit", example: "e.g. He accepted the job, albeit with some reservations." }
+            { topic: "albeit", example: "e.g. He accepted the job, albeit with some reservations." },
         ],
-        list:[
-            "using dash",
-            "not to mention vs let alone",
-            "albeit vs but",
-        ]
-    }
-]
+        list: ["using dash", "not to mention vs let alone", "albeit vs but"],
+    },
+];
 
 export default others;

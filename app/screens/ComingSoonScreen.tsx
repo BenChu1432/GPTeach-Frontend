@@ -3,7 +3,7 @@ import Lottie from "lottie-react-native"
 import React from 'react';
 
 export default function ComingSoonScreen(){
-    const comingSoonJSON=require("../assets/animations/animation_comingSoon.json")
+    const comingSoonJSON=require("../../assets/animations/animation_comingSoon.json")
     return(
         <View style={styles.container}>
             <Lottie

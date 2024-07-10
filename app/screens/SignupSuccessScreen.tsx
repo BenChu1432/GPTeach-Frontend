@@ -6,7 +6,7 @@ import AppButton from "../components/AppButton";
 
 
 export default function SignupSuccessScreen({navigation}) {
-    const comingSoonJSON=require("../assets/animations/animation_success.json")
+    const comingSoonJSON=require("../../assets/animations/animation_success.json")
     return(
         <View style={styles.container}>
             <Lottie

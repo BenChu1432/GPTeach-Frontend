@@ -1,7 +1,3 @@
-const fontSize=[
-    {value:"Beginner level"},
-    {value:"Intermediate level"},
-    {value:"Advanced level"},
-]
+const levelOfVocabulary = [{ value: "Beginner level" }, { value: "Intermediate level" }, { value: "Advanced level" }];
 
-export default fontSize;
+export default levelOfVocabulary;

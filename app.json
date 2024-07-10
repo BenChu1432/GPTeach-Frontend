@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "gpteach",
     "name": "Eng_AI_Assistant",
     "slug": "Eng_AI_Assistant",
     "version": "1.0.0",
@@ -15,16 +16,30 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.benluchu.Eng.AI.Assistant",
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes":["com.googleusercontent.apps.668733472630-2qvodlp7q7tbqhrdhlf5vkagnlmu49mg"]
+          }
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.benluchu.Eng_AI_Assistant"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "32407851-a098-4317-b4ec-58bab9122178"
+      }
     }
   }
 }

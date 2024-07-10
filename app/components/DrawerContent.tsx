@@ -17,14 +17,27 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import {useNavigation} from "@react-navigation/native";
+import {DrawerNavigationState, NavigationProp, ParamListBase, useNavigation} from "@react-navigation/native";
 import { signOut } from "firebase/auth";
 import {logout} from "../api/FirebaseResources";
+import {DrawerDescriptorMap, DrawerNavigationHelpers} from "@react-navigation/drawer/lib/typescript/src/types";
 
 
+type Props={
+    state: DrawerNavigationState<ParamListBase>;
+    navigation: DrawerNavigationHelpers;
+    descriptors: DrawerDescriptorMap;
+}
 
-export default function DrawerContent(){
-    const navigation = useNavigation();
+export type RootStackParamList = {
+    Home: undefined; // No parameters expected for Home route
+    Auth: undefined;
+    Subscription:undefined;
+    // ... other route definitions
+};
+
+export default function DrawerContent(props:Props){
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const handleFeedbackOnPress=async ()=>{
         try {
             await Linking.openURL('mailto:englishgpteach@gmail.com');
@@ -43,7 +56,7 @@ export default function DrawerContent(){
                 <SimpleLineIcons name="arrow-right" size={24} color={"black"} />
             </TouchableOpacity>
             <View style={styles.partition}></View>
-            <TouchableOpacity style={styles.drawerItemContainer} onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity style={styles.drawerItemContainer} onPress={() => navigation.navigate('Subscription', {navigationPosition: "Subscription"})}>
                 <View style={styles.drawerItem}>
                     <Entypo name="calendar" size={30} color="black" style={styles.icon}/>
                     <Text style={styles.text}>Subscription</Text>

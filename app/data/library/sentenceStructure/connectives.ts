@@ -1,15 +1,18 @@
-const connectives=[
+const connectives = [
     {
-        name:"All mixed(no correlatives)",
+        name: "All mixed(no correlatives)",
         content: [
-            {topic: "so vs therefore", example: "e.g. He was hungry, so he ate a sandwich vs. He had not eaten all day; therefore, he was hungry."},
-            {topic: "but vs however", example: "e.g. He loves coffee but doesn't like tea vs. He loves coffee; however, he doesn't drink it after 5 pm."},
-            {topic: "because vs because of", example: "e.g. She was late because she missed the bus vs. She was late because of the traffic."},
-            {topic: "because vs due to", example: "e.g. The game was postponed because it was raining vs. The game was postponed due to rain."},
-            {topic: "when vs while", example: "e.g. She was watching a movie when he arrived. vs. While she was watching a movie, he arrived."},
-            {topic: "alternatively vs conversely", example: "e.g. We could go to the park; alternatively, there's a museum nearby we could visit vs. He enjoys summer; conversely, she prefers winter."}
+            { topic: "so vs therefore", example: "e.g. He was hungry, so he ate a sandwich vs. He had not eaten all day; therefore, he was hungry." },
+            { topic: "but vs however", example: "e.g. He loves coffee but doesn't like tea vs. He loves coffee; however, he doesn't drink it after 5 pm." },
+            { topic: "because vs because of", example: "e.g. She was late because she missed the bus vs. She was late because of the traffic." },
+            { topic: "because vs due to", example: "e.g. The game was postponed because it was raining vs. The game was postponed due to rain." },
+            { topic: "when vs while", example: "e.g. She was watching a movie when he arrived. vs. While she was watching a movie, he arrived." },
+            {
+                topic: "alternatively vs conversely",
+                example: "e.g. We could go to the park; alternatively, there's a museum nearby we could visit vs. He enjoys summer; conversely, she prefers winter.",
+            },
         ],
-        list:[
+        list: [
             // Cause or Reason
             "so",
             "therefore",
@@ -58,6 +61,7 @@ const connectives=[
             "in spite of",
             "irrespective",
             "notwithstanding",
+            "regardless",
             "regardless of",
             "however",
             "although",
@@ -88,7 +92,9 @@ const connectives=[
             "thus",
             "hence",
             "as a result",
+            "as a result of",
             "as a consequence",
+            "as a consequence of",
             "consequently",
             "subsequently",
             "thereby",
@@ -174,11 +180,11 @@ const connectives=[
             "or",
             "alternatively",
             "otherwise",
-        ]
+        ],
     },
     {
-        name:"Subordinating Conjunctions",
-        content:[
+        name: "Subordinating Conjunctions",
+        content: [
             { topic: "because vs so", example: "e.g. He studied hard [because] he wanted to pass vs. He wanted to pass, [so] he studied hard." },
             { topic: "but vs so", example: "e.g. He wanted to go out, [but] it was raining vs. It was raining, [so] he didn't go out." },
             { topic: "in order to vs so that", example: "e.g. I woke up early [in order to] catch the bus vs. I woke up early [so that] I wouldn't miss the bus." },
@@ -187,9 +193,8 @@ const connectives=[
             { topic: "when vs while", example: "e.g. I was at the store [when] it started to rain vs. [While] I was at the store, it started to rain." },
             { topic: "if vs unless", example: "e.g. I'll go to the party [if] it doesn't rain vs. I won't go to the party [unless] it stops raining." },
             { topic: "in case vs unless", example: "e.g. Bring an umbrella [in case] it rains vs. Don't bring an umbrella [unless] it looks like rain." },
-
         ],
-        list:[
+        list: [
             // Cause or Reason
             "so",
             "because",
@@ -267,17 +272,16 @@ const connectives=[
             "as though",
             "like (in some dialects)",
             "the way",
-
-        ]
+        ],
     },
     {
         name: "Causative Phrases",
         content: [
-            {topic: "despite vs because of", example: "e.g. He came to the match [despite] the rain vs. He stayed home [because of] the rain."},
-            {topic: "despite vs due to", example: "e.g. She passed the test [[despite] not studying vs. She passed the test [due to] her innate talent."},
-            {topic: "in order to vs with a view to", example: "e.g. He studied hard [in order to] pass the exam vs. He joined the club [with a view to] enhancing his skills."},
-            {topic: "as a result of vs in the event of", example: "e.g. The match was canceled [as a result of] heavy rain vs. There's a backup plan [in the event of] rain."},
-            {topic: "when vs while", example: "e.g. [When] he came over, we were watching TV. vs. [While] we were watching TV, my friend knocked on the door."},
+            { topic: "despite vs because of", example: "e.g. He came to the match [despite] the rain vs. He stayed home [because of] the rain." },
+            { topic: "despite vs due to", example: "e.g. She passed the test [[despite] not studying vs. She passed the test [due to] her innate talent." },
+            { topic: "in order to vs with a view to", example: "e.g. He studied hard [in order to] pass the exam vs. He joined the club [with a view to] enhancing his skills." },
+            { topic: "as a result of vs in the event of", example: "e.g. The match was canceled [as a result of] heavy rain vs. There's a backup plan [in the event of] rain." },
+            { topic: "when vs while", example: "e.g. [When] he came over, we were watching TV. vs. [While] we were watching TV, my friend knocked on the door." },
         ],
         list: [
             // Direct Cause or Reason
@@ -326,15 +330,15 @@ const connectives=[
 
             // Condition or Requirement
             "in the event of",
-            "in case of"
-        ]
+            "in case of",
+        ],
     },
     {
         name: "Conjunctive Adverbs",
         content: [
-            {topic: "however vs therefore", example: "e.g. He didn't study for the test; however, he still managed to get a good grade."},
-            {topic: "similarly vs alternatively", example: "e.g. John loves playing tennis; similarly, his sister is into racquet sports."},
-            {topic: "conversely vs likewise",example:"She enjoys hiking in the mountains; likewise, her brother loves outdoor adventures."}
+            { topic: "however vs therefore", example: "e.g. He didn't study for the test; however, he still managed to get a good grade." },
+            { topic: "similarly vs alternatively", example: "e.g. John loves playing tennis; similarly, his sister is into racquet sports." },
+            { topic: "conversely vs likewise", example: "She enjoys hiking in the mountains; likewise, her brother loves outdoor adventures." },
         ],
         list: [
             // Contrast or Opposition
@@ -434,21 +438,21 @@ const connectives=[
             // Others (adverbs that don't fit neatly into the above categories or are more general)
             "first and foremost",
             "lastly",
-            "last but not least"
-        ]
+            "last but not least",
+        ],
     },
     {
-        name:"Correlative conjunctions",
+        name: "Correlative conjunctions",
         content: [
-            {topic: "either...or... vs neither...nor...", example: "e.g. You can either have the chocolate or the vanilla ice cream."},
-            {topic: "both... and... vs neither...nor...", example: "e.g. He is both intelligent and hardworking."},
-            {topic: "not only... but also... vs neither...nor...", example: "e.g. Not only did he arrive late, but he also forgot his ticket."},
-            {topic: "so...that... vs such...that...", example: "e.g. The book was so interesting that I read it in one sitting."},
-            {topic: "scarcely/hardly... when... vs no sooner... than...", example: "e.g. Scarcely had I stepped outside when it began to rain."},
-            {topic: "not... but...", example: "e.g. She wants not praise but constructive feedback."},
-            {topic: "the+adj/adv(+SVO),the+adj/adv(+SVO)", example: "e.g. The more you practice, the better you become."}
+            { topic: "either...or... vs neither...nor...", example: "e.g. You can either have the chocolate or the vanilla ice cream." },
+            { topic: "both... and... vs neither...nor...", example: "e.g. He is both intelligent and hardworking." },
+            { topic: "not only... but also... vs neither...nor...", example: "e.g. Not only did he arrive late, but he also forgot his ticket." },
+            { topic: "so...that... vs such...that...", example: "e.g. The book was so interesting that I read it in one sitting." },
+            { topic: "scarcely/hardly... when... vs no sooner... than...", example: "e.g. Scarcely had I stepped outside when it began to rain." },
+            { topic: "not... but...", example: "e.g. She wants not praise but constructive feedback." },
+            { topic: "the+adj/adv(+SVO),the+adj/adv(+SVO)", example: "e.g. The more you practice, the better you become." },
         ],
-        list:[
+        list: [
             "either...or...",
             "neither...nor...",
             "both... and...",
@@ -458,9 +462,9 @@ const connectives=[
             "scarcely/hardly... when...",
             "no sooner... than...",
             "not... but...",
-            "the+adj/adv(+SVO),the+adj/adv(+SVO)"
-        ]
+            "the+adj/adv(+SVO),the+adj/adv(+SVO)",
+        ],
     },
-]
+];
 
 export default connectives;

@@ -1,5 +1,5 @@
 import Screen from "../components/Screen";
-import {Image, Platform, SafeAreaView, StatusBar, StyleSheet, Text, View, Button} from "react-native";
+import {Image, Platform, SafeAreaView, StatusBar, StyleSheet, Text, View, Button, ScrollView} from "react-native";
 import AppTextInput from "../components/AppTextInput";
 import React, {useEffect, useState} from 'react';
 import {Formik, useFormikContext} from 'formik';
@@ -50,34 +50,38 @@ export default function SignupScreen({navigation}) {
     }else{
         return (
             <Screen style={styles.container}>
-                {signupError&&<ErrorMessageBar error={"Error in signing up. Please contact us."}/>}
-                <View style={styles.logoContainer}>
-                <Image source={require("../assets/logo.png")} style={styles.logo}></Image>
-                </View>
-                <Text style={styles.login}>Signup</Text>
-                <Formik initialValues={{email:"", password:"",confirmPassword:""}} onSubmit={values=>handleSignin(values.email,values.password)} validationSchema={validationSchema}>
-                {({handleChange, handleSubmit, errors,setFieldTouched, touched})=>(
-                <View style={styles.inputContainer}>
-                <AppTextInput widthPercentage={100} textContentType={"emailAddress"} onBlur={()=>setFieldTouched("email")} icon={"email"} placeholder={"Email"} keyboardType={"email-address"} autoCapitalize={"none"}  onChangeText={handleChange("email")}/>
-                    {touched.email?<ErrorMessage error={errors.email}/>:null}
-                <AppTextInput widthPercentage={100} onBlur={()=>setFieldTouched("password")} icon={"lock"} placeholder={"Password"} secureTextEntry={true} autoCapitalize={"none"}  onChangeText={handleChange("password")}/>
-                {touched.password?<ErrorMessage error={errors.password}/>:null}
-                    <AppTextInput widthPercentage={100} onBlur={()=>setFieldTouched("confirmPassword")} icon={"lock"} placeholder={"Confirm Password"} secureTextEntry={true} autoCapitalize={"none"}  onChangeText={handleChange("confirmPassword")}/>
-                    {touched.confirmPassword?<ErrorMessage error={errors.confirmPassword}/>:null}
-                <AppButton color={"white"} word={"Register"} widthPercentage={60} onPress={handleSubmit} wordColor={"#3369FF"}/>
-                <View style={styles.partitionLineContainer}>
-                <View style={styles.partitionLine}/>
-                <View style={styles.partitionLineTextContainer}>
-                <Text style={styles.partitionLineText}>
-                    or
-                    </Text>
+                <ScrollView style={styles.container} alwaysBounceVertical={true} >
+                    <View style={{display:"flex",alignItems:"center"}}>
+                        {signupError&&<ErrorMessageBar error={"Error in signing up. Please contact us."}/>}
+                        <View style={styles.logoContainer}>
+                            <Image source={require("../../assets/logo.png")} style={styles.logo}></Image>
+                        </View>
+                        <Text style={styles.login}>Signup</Text>
+                        <Formik initialValues={{email:"", password:"",confirmPassword:""}} onSubmit={values=>handleSignin(values.email,values.password)} validationSchema={validationSchema}>
+                            {({handleChange, handleSubmit, errors,setFieldTouched, touched})=>(
+                                <View style={styles.inputContainer}>
+                                    <AppTextInput widthPercentage={100} textContentType={"emailAddress"} onBlur={()=>setFieldTouched("email")} icon={"email"} placeholder={"Email"} keyboardType={"email-address"} autoCapitalize={"none"}  onChangeText={handleChange("email")}/>
+                                    {touched.email?<ErrorMessage error={errors.email}/>:null}
+                                    <AppTextInput widthPercentage={100} onBlur={()=>setFieldTouched("password")} icon={"lock"} placeholder={"Password"} secureTextEntry={true} autoCapitalize={"none"}  onChangeText={handleChange("password")}/>
+                                    {touched.password?<ErrorMessage error={errors.password}/>:null}
+                                    <AppTextInput widthPercentage={100} onBlur={()=>setFieldTouched("confirmPassword")} icon={"lock"} placeholder={"Confirm Password"} secureTextEntry={true} autoCapitalize={"none"}  onChangeText={handleChange("confirmPassword")}/>
+                                    {touched.confirmPassword?<ErrorMessage error={errors.confirmPassword}/>:null}
+                                    <AppButton color={"white"} word={"Register"} widthPercentage={60} onPress={handleSubmit} wordColor={"#3369FF"}/>
+                                    <View style={styles.partitionLineContainer}>
+                                        <View style={styles.partitionLine}/>
+                                        <View style={styles.partitionLineTextContainer}>
+                                            <Text style={styles.partitionLineText}>
+                                                or
+                                            </Text>
+                                        </View>
+                                        <View style={styles.partitionLine}/>
+                                    </View>
+                                    <AppButton color={"white"} word={"Login"} widthPercentage={60} wordColor={"#3369FF"} onPress={()=>{navigation.navigate("Login")}} />
+                                </View>
+                            )}
+                        </Formik>
                     </View>
-                    <View style={styles.partitionLine}/>
-                </View>
-                <AppButton color={"white"} word={"Login"} widthPercentage={60} wordColor={"#3369FF"} onPress={()=>{navigation.navigate("Login")}} />
-                </View>
-                )}
-                </Formik>
+                </ScrollView>
             </Screen>
         );
         }
@@ -87,7 +91,6 @@ const styles = StyleSheet.create({
     container:{
         display: "flex",
         backgroundColor: "#3369FF",
-        alignItems: "center",
         height: "100%",
         width: "100%",
     },

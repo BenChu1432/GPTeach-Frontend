@@ -4,7 +4,7 @@ import Lottie from "lottie-react-native"
 
 
 export default function LoadingScreen() {
-    const comingSoonJSON=require("../assets/animations/animation_lm4mjuyh.json")
+    const comingSoonJSON=require("../../assets/animations/animation_lm4mjuyh.json")
     return(
         <View style={styles.container}>
             <Lottie

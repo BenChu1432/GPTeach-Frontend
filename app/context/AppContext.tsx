@@ -22,6 +22,8 @@ interface AppContextType {
     setSelectedTheme: (value: string) => void;
     numOfParagraphs:number;
     setNumOfParagraphs: (value: number) => void;
+    userEmail:string;
+    setUserEmail:(value:string)=>void;
 }
 
 interface AppProviderProps {
@@ -32,7 +34,7 @@ interface AppProviderProps {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 // Create the provider component
-export const AppProvider: React.FC = ({children}) => {
+export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const [currentCategory,setCurrentCategory]= useState<string>("Grammar");
     const [selectedLevelOfVocabulary, setSelectedLevelOfVocabulary] = useState<string>("Beginner level");
     const [selectedQuestionType, setSelectedQuestionType] = useState<string>("Fill-in-the-blank questions");
@@ -43,6 +45,7 @@ export const AppProvider: React.FC = ({children}) => {
     const [selectedFontFamily, setSelectedFontFamily] = useState<string>("Times New Roman");
     const [selectedFile,setSelectedFile] = useState<string>("PDF");
     const [selectedTheme,setSelectedTheme] = useState<string>("random");
+    const [userEmail, setUserEmail]= useState<string>("");
 
     return (
         <AppContext.Provider
@@ -66,7 +69,10 @@ export const AppProvider: React.FC = ({children}) => {
                 numOfParagraphs,
                 setNumOfParagraphs,
                 currentCategory,
-                setCurrentCategory
+                setCurrentCategory,
+                userEmail,
+                setUserEmail
+
 
     }}
 >
