@@ -16,7 +16,6 @@ import SignupScreen from "./app/screens/SignupScreen";
 import SignupSuccessScreen from "./app/screens/SignupSuccessScreen";
 import ChatbotScreen from "./app/screens/ChatbotScreen";
 import FunctionalitiesSettingScreen from "./app/screens/FunctionalitiesSettingScreen";
-import { AppProvider } from "./app/context/AppContext";
 import languageEnrichmentInputScreen from "./app/screens/LanguageEnrichmentInputScreen";
 import ThemeBasedVsCustomized from "./app/screens/ThemeBasedVsCustomized";
 import CustomizedLanguageEnrichmentScreen from "./app/screens/CustomizedLanguageEnrichmentScreen";
@@ -72,19 +71,17 @@ function AuthenticationNavigator() {
 
 export default function MainApp() {
     return (
-        <AppProvider>
-            <Provider store={store}>
-                <NavigationContainer>
-                    <StripeProvider publishableKey={process.env.STRIPE_PUBLISHABLE_KEY!}>
-                        <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-                            <Drawer.Screen name="Home" component={MainStackNavigator} options={{ headerShown: false }} />
-                            <Drawer.Screen name="Auth" component={AuthenticationNavigator} options={{ headerShown: false }} />
-                            <Drawer.Screen name="Subscription" component={SubscriptionScreen} options={{ header: () => <NavigationBar /> }} />
-                        </Drawer.Navigator>
-                    </StripeProvider>
-                </NavigationContainer>
-            </Provider>
-        </AppProvider>
+        <Provider store={store}>
+            <NavigationContainer>
+                <StripeProvider publishableKey={process.env.STRIPE_PUBLISHABLE_KEY!}>
+                    <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
+                        <Drawer.Screen name="Home" component={MainStackNavigator} options={{ headerShown: false }} />
+                        <Drawer.Screen name="Auth" component={AuthenticationNavigator} options={{ headerShown: false }} />
+                        <Drawer.Screen name="Subscription" component={SubscriptionScreen} options={{ header: () => <NavigationBar /> }} />
+                    </Drawer.Navigator>
+                </StripeProvider>
+            </NavigationContainer>
+        </Provider>
     );
 }
 
