@@ -2,7 +2,6 @@ import { Category } from "../data/dto";
 import { FlatList, Platform, StatusBar, StyleSheet, View } from "react-native";
 import PickerItem from "../components/PickerItem";
 import React, { useEffect } from "react";
-import { useAppContext } from "../context/AppContext";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import { useAppDispatch } from "../redux/app/hooks";
 import appSlice from "../redux/slices/appSlice";

@@ -17,7 +17,6 @@ import otherStructures from "../data/library/sentenceStructure/others";
 import NotesContainer from "../components/NotesContainer";
 import { CategoryContent } from "../data/dto";
 import literaryDevices from "../data/library/literaryDevices/literaryDevices";
-import { useAppContext } from "../context/AppContext";
 import languageEnrichment from "../data/library/languageEnrichment/languageEnrichment";
 import register from "../data/library/register/register";
 import appSlice from "../redux/slices/appSlice";

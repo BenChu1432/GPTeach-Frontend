@@ -1,12 +1,8 @@
 import localhost from "../config/localhost";
-import {
-    initPaymentSheet,
-    presentPaymentSheet,
-    useStripe,
-} from "@stripe/stripe-react-native";
+import { initPaymentSheet, presentPaymentSheet, useStripe } from "@stripe/stripe-react-native";
 import { PresentOptions } from "@stripe/stripe-react-native/lib/typescript/src/types/PaymentSheet";
 import { useState } from "react";
-import { useAppContext } from "../context/AppContext";
+import { useAppSelector } from "../redux/app/hooks";
 
 // Define the types for the response from your backend
 type PaymentSheetParams = {
@@ -26,12 +22,10 @@ interface CustomPresentOptions extends PresentOptions {
     clientSecret?: string;
 }
 
-export const useStripeSubscriptionService = (
-    setLoading: (loading: boolean) => void
-) => {
+export const useStripeSubscriptionService = (setLoading: (loading: boolean) => void) => {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
     const [clientSecret, setClientSecret] = useState<string>("");
-    const { userEmail } = useAppContext();
+    const userEmail = useAppSelector((s) => s.authSlice.email);
 
     const openPaymentSheet = async () => {
         if (clientSecret) {
@@ -47,39 +41,35 @@ export const useStripeSubscriptionService = (
         }
     };
 
-    const fetchPaymentSheetParams =
-        async (): Promise<PaymentSheetParamsResponse> => {
-            console.log("userEmail:" + userEmail);
-            try {
-                // Here is the problem!
-                const response = await fetch(
-                    `http://${localhost}:3000/stripe/payment-sheet`,
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            email: "customer@example.com", // Replace with actual customer email
-                            // $119
-                            priceId: "price_1OYVK4LbEuFcJe70qjAJCb0o",
-                        }),
-                    }
-                );
-                console.log("response:" + response);
+    const fetchPaymentSheetParams = async (): Promise<PaymentSheetParamsResponse> => {
+        console.log("userEmail:" + userEmail);
+        try {
+            // Here is the problem!
+            const response = await fetch(`http://${localhost}:3000/stripe/payment-sheet`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: "customer@example.com", // Replace with actual customer email
+                    // $119
+                    priceId: "price_1OYVK4LbEuFcJe70qjAJCb0o",
+                }),
+            });
+            console.log("response:" + response);
 
-                if (response.ok) {
-                    const jsonResponse = await response.json();
-                    console.log(jsonResponse);
-                    return jsonResponse;
-                } else {
-                    throw new Error("Network response was not ok.");
-                }
-            } catch (error) {
-                console.error("Error fetching payment sheet params:", error);
-                return null;
+            if (response.ok) {
+                const jsonResponse = await response.json();
+                console.log(jsonResponse);
+                return jsonResponse;
+            } else {
+                throw new Error("Network response was not ok.");
             }
-        };
+        } catch (error) {
+            console.error("Error fetching payment sheet params:", error);
+            return null;
+        }
+    };
 
     const initializePaymentSheet = async () => {
         console.log("in");

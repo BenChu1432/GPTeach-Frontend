@@ -1,15 +1,5 @@
 import Screen from "../components/Screen";
-import {
-    Image,
-    Platform,
-    SafeAreaView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    View,
-    Button,
-    TouchableOpacity,
-} from "react-native";
+import { Image, Platform, SafeAreaView, StatusBar, StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import AppTextInput from "../components/AppTextInput";
 import React, { useEffect, useState } from "react";
 import { Formik, useFormikContext } from "formik";
@@ -25,7 +15,10 @@ import * as Google from "expo-auth-session/providers/google";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import getUserInfo from "../api/GoogleSignInResources";
-import { useAppContext } from "../context/AppContext";
+import { useAppDispatch } from "../redux/app/hooks";
+import appSlice from "../redux/slices/appSlice";
+import { auth } from "../config/firebaseConfig";
+import authSlice from "../redux/slices/authSlice";
 
 // If you have a defined param list, use it here instead of ParamListBase
 interface SentenceStructurePickerScreenProps {
@@ -34,9 +27,7 @@ interface SentenceStructurePickerScreenProps {
 
 WebBrowser.maybeCompleteAuthSession();
 
-export default function LoginScreen({
-    navigation,
-}: SentenceStructurePickerScreenProps) {
+export default function LoginScreen({ navigation }: SentenceStructurePickerScreenProps) {
     const [userInfo, setUserInfo] = useState(null);
     // promptAsync is to trigger a login page
     // const [request,response,promptAsync]=Google.useAuthRequest(({
@@ -45,14 +36,10 @@ export default function LoginScreen({
     //     androidClientId:"668733472630-u7h3vtohofgpfgcsa2tog7cehir8jbmd.apps.googleusercontent.com",
     //     iosClientId:"668733472630-2qvodlp7q7tbqhrdhlf5vkagnlmu49mg.apps.googleusercontent.com"
     // }))
-    const [emailVerified, setEmailVerified] = useState<boolean | undefined>(
-        undefined
-    );
+    const [emailVerified, setEmailVerified] = useState<boolean | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(false);
-    const [loggedInError, setLoggedInError] = useState<boolean | undefined>(
-        undefined
-    );
-    const { setUserEmail } = useAppContext();
+    const [loggedInError, setLoggedInError] = useState<boolean | undefined>(undefined);
+    const dispatch = useAppDispatch();
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().required().email().label("Email"),
@@ -72,22 +59,14 @@ export default function LoginScreen({
     // }
 
     const handleSignin = (email: string, password: string) => {
-        signIn(
-            email,
-            password,
-            setEmailVerified,
-            setLoading,
-            setLoggedInError,
-            setUserEmail
-        );
+        signIn(email, password, setEmailVerified, setLoading, setLoggedInError).then(() => {
+            dispatch(authSlice.actions.setEmail(email));
+        });
     };
 
     useEffect(() => {
         if (emailVerified === false) {
-            alert(
-                "You need to verify your email." +
-                    "A verification email has been sent to you."
-            );
+            alert("You need to verify your email." + "A verification email has been sent to you.");
         }
     }, [emailVerified]);
 
@@ -105,26 +84,11 @@ export default function LoginScreen({
         return (
             <Screen style={styles.container}>
                 <View style={styles.logoContainer}>
-                    <Image
-                        source={require("../../assets/logo.png")}
-                        style={styles.logo}
-                    />
+                    <Image source={require("../../assets/logo.png")} style={styles.logo} />
                 </View>
                 <Text style={styles.login}>Login</Text>
-                <Formik
-                    initialValues={{ email: "", password: "" }}
-                    onSubmit={(values) =>
-                        handleSignin(values.email, values.password)
-                    }
-                    validationSchema={validationSchema}
-                >
-                    {({
-                        handleChange,
-                        handleSubmit,
-                        errors,
-                        setFieldTouched,
-                        touched,
-                    }) => (
+                <Formik initialValues={{ email: "", password: "" }} onSubmit={(values) => handleSignin(values.email, values.password)} validationSchema={validationSchema}>
+                    {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
                         <View style={styles.inputContainer}>
                             <AppTextInput
                                 widthPercentage={100}
@@ -135,9 +99,7 @@ export default function LoginScreen({
                                 autoCapitalize={"none"}
                                 onChangeText={handleChange("email")}
                             />
-                            {touched.email ? (
-                                <ErrorMessage error={errors.email} />
-                            ) : null}
+                            {touched.email ? <ErrorMessage error={errors.email} /> : null}
                             <AppTextInput
                                 widthPercentage={100}
                                 textContentType={"emailAddress"}
@@ -148,23 +110,12 @@ export default function LoginScreen({
                                 autoCapitalize={"none"}
                                 onChangeText={handleChange("password")}
                             />
-                            {touched.password ? (
-                                <ErrorMessage error={errors.password} />
-                            ) : null}
-                            <AppButton
-                                marginTop={20}
-                                color={"white"}
-                                word={"Go"}
-                                widthPercentage={60}
-                                onPress={handleSubmit}
-                                wordColor={"#3369FF"}
-                            />
+                            {touched.password ? <ErrorMessage error={errors.password} /> : null}
+                            <AppButton marginTop={20} color={"white"} word={"Go"} widthPercentage={60} onPress={handleSubmit} wordColor={"#3369FF"} />
                             <View style={styles.partitionLineContainer}>
                                 <View style={styles.partitionLine} />
                                 <View style={styles.partitionLineTextContainer}>
-                                    <Text style={styles.partitionLineText}>
-                                        Or
-                                    </Text>
+                                    <Text style={styles.partitionLineText}>Or</Text>
                                 </View>
                                 <View style={styles.partitionLine} />
                             </View>

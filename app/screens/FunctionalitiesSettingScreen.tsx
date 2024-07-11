@@ -7,7 +7,6 @@ import Counter from "../components/Counter";
 import fontSize from "../data/setting/fontSize";
 import fontFamily from "../data/setting/fontFamily";
 import levelsOfVocab from "../data/setting/levelOfVocab";
-import { useAppContext } from "../context/AppContext";
 import colors from "../config/colors";
 import file from "../data/setting/file";
 import AppTextInput from "../components/AppTextInput";

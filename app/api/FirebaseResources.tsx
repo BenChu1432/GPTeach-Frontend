@@ -1,10 +1,4 @@
-import {
-    getAuth,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    sendEmailVerification,
-    signOut,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, signOut } from "firebase/auth";
 import { FIREBASE_AUTH } from "../config/firebaseConfig";
 
 const auth = getAuth(FIREBASE_AUTH);
@@ -14,8 +8,8 @@ const signIn = async (
     password: string,
     setEmailVerified: (emailVerified: boolean) => void,
     setLoading: (loading: boolean) => void,
-    setSigninError: (signupError: boolean) => void,
-    setUserEmail: (userEmail: string) => void
+    setSigninError: (signupError: boolean) => void
+    // setUserEmail: (userEmail: string) => void
 ) => {
     setLoading(true);
     try {
@@ -30,7 +24,7 @@ const signIn = async (
                 } else {
                     setEmailVerified(true);
                 }
-                setUserEmail(user.email!);
+                // setUserEmail(user.email!);
                 setLoading(false);
                 setSigninError(false);
             })
@@ -46,12 +40,7 @@ const signIn = async (
     }
 };
 
-const signup = async (
-    email: string,
-    password: string,
-    setLoading: (loading: boolean) => void,
-    setSignupError: (signupError: boolean) => void
-) => {
+const signup = async (email: string, password: string, setLoading: (loading: boolean) => void, setSignupError: (signupError: boolean) => void) => {
     setLoading(true);
     try {
         createUserWithEmailAndPassword(auth, email, password)

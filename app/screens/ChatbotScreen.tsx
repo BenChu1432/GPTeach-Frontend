@@ -5,7 +5,6 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { createPDF, postOpenai, postOpenaiInstruction, postOpenaiModelAnswers, postOpenaiNotes } from "../api/OpenaiResource";
 import Lottie from "lottie-react-native";
-import { useAppContext } from "../context/AppContext";
 import { FontAwesome } from "@expo/vector-icons";
 import DoubleClick from "react-native-double-tap";
 import { useAppSelector } from "../redux/app/hooks";

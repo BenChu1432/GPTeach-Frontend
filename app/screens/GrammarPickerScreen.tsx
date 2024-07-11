@@ -4,8 +4,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import PickerItem from "../components/PickerItem";
 import { Category } from "../data/dto";
-import Screen from "../components/Screen";
-import { useAppContext } from "../context/AppContext";
 import { useAppDispatch } from "../redux/app/hooks";
 import appSlice from "../redux/slices/appSlice";
 import { ParamListBase, NavigationProp } from "@react-navigation/native";

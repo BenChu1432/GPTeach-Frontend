@@ -2,7 +2,6 @@ import { StyleSheet, View, Text } from "react-native";
 import fontSize from "../config/fontSize";
 import ThemeCard from "../components/ThemeCard";
 import CustomizedVsStandardizedCard from "../components/CustomizedVsStandardizedCard";
-import { useAppContext } from "../context/AppContext";
 import { useEffect } from "react";
 import { useAppDispatch } from "../redux/app/hooks";
 import appSlice from "../redux/slices/appSlice";
