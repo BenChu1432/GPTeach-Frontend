@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const { EXPO_PUBLIC_BACKEND_URL: baseURL } = process.env;
+const { EXPO_PUBLIC_BACKEND_URL } = process.env;
 
 const apiClient = axios.create({
-    baseURL,
+    baseURL: EXPO_PUBLIC_BACKEND_URL,
     responseEncoding: "utf8",
     headers: {
         "Content-type": "application/json",

@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, Text, AppRegistry } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { StyleSheet, Text, AppRegistry, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer } from "@react-navigation/native";
@@ -22,14 +22,33 @@ import CustomizedLanguageEnrichmentScreen from "./app/screens/CustomizedLanguage
 import appConfig from "./app.json";
 import SubscriptionScreen from "./app/screens/SubscriptionScreen";
 import { StripeProvider } from "@stripe/stripe-react-native";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { persistor, store } from "./app/redux/app/store";
+import { ToastOptions, ToastProvider, useToast } from "react-native-toast-notifications";
+import { MaterialIcons } from "@expo/vector-icons";
+import { renderToast } from "./app/components/Toast";
+import ToastRef from "react-native-toast-notifications";
+import { useAppSelector } from "./app/redux/app/hooks";
+import appSlice from "./app/redux/slices/appSlice";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
 
 function MainStackNavigator() {
+    // Not layout file so have to do it here
+    const toastObject = useAppSelector((s) => s.appSlice.toast);
+    const toast = useToast();
+
+    useEffect(() => {
+        if (toastObject.message) {
+            toast.show("", {
+                type: toastObject.type,
+                data: { message: toastObject.message }, // Pass the message here
+            });
+        }
+    }, [toastObject.message]);
+
     return (
         <Stack.Navigator>
             <Stack.Screen name="Main" component={FoundationScreen} options={{ header: () => <NavigationBar /> }} />
@@ -73,13 +92,31 @@ export default function MainApp() {
     return (
         <Provider store={store}>
             <NavigationContainer>
-                <StripeProvider publishableKey={process.env.STRIPE_PUBLISHABLE_KEY!}>
-                    <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-                        <Drawer.Screen name="Home" component={MainStackNavigator} options={{ headerShown: false }} />
-                        <Drawer.Screen name="Auth" component={AuthenticationNavigator} options={{ headerShown: false }} />
-                        <Drawer.Screen name="Subscription" component={SubscriptionScreen} options={{ header: () => <NavigationBar /> }} />
-                    </Drawer.Navigator>
-                </StripeProvider>
+                <ToastProvider
+                    placement="top"
+                    duration={5000}
+                    animationType="slide-in"
+                    animationDuration={250}
+                    normalColor="gray"
+                    icon={<MaterialIcons name="info-outline" size={24} color="white" />} // Default icon
+                    successIcon={<MaterialIcons name="check-circle" size={24} color="green" />} // Success icon
+                    dangerIcon={<MaterialIcons name="error" size={24} color="red" />} // Danger icon
+                    warningIcon={<MaterialIcons name="warning" size={24} color="orange" />} // Warning icon
+                    textStyle={{ fontSize: 20 }}
+                    offset={50} // offset for both top and bottom toasts
+                    offsetTop={30}
+                    offsetBottom={40}
+                    swipeEnabled={true}
+                    renderToast={renderToast}
+                >
+                    <StripeProvider publishableKey={process.env.STRIPE_PUBLISHABLE_KEY!}>
+                        <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
+                            <Drawer.Screen name="Home" component={MainStackNavigator} options={{ headerShown: false }} />
+                            <Drawer.Screen name="Auth" component={AuthenticationNavigator} options={{ headerShown: false }} />
+                            <Drawer.Screen name="Subscription" component={SubscriptionScreen} options={{ header: () => <NavigationBar /> }} />
+                        </Drawer.Navigator>
+                    </StripeProvider>
+                </ToastProvider>
             </NavigationContainer>
         </Provider>
     );

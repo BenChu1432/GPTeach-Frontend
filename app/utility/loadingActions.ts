@@ -1,4 +1,4 @@
-import appSlice from "../slices/appSlice";
+import appSlice from "../redux/slices/appSlice";
 
 type Action = {
     meta: { arg: { showLoading?: boolean } };

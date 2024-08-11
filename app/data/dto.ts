@@ -15,3 +15,18 @@ export type CategoryContent = {
     content: Content[];
     list: string[];
 };
+
+export type LoginResponse = {
+    accessToken: string;
+    refreshToken: string;
+    user: TokenPayload;
+};
+
+export type TokenPayload = {
+    uuid?: string;
+    is_blocked: boolean;
+    email: string;
+    created_at: number;
+};
+
+export type ToastType = "success" | "info" | "error" | "warning";

@@ -7,6 +7,11 @@
  */
 import { createAsyncThunk, createListenerMiddleware, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { NavigationTitle, QuestionType } from "../../data/enum/enum";
+import { WBResponse } from "../../axios/responseTypes";
+import apiClient from "../../axios/apiClient";
+import apiRoutes from "../../axios/apiRoutes";
+import processRes from "../../utility/processRes";
+import { ToastType } from "../../data/dto";
 
 const EXPO_PUBLIC_VERSION = process.env.EXPO_PUBLIC_VERSION || "";
 const EXPO_PUBLIC_BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
@@ -26,6 +31,7 @@ type AppSliceState = {
     title: string;
     fileType: string;
     loading: boolean;
+    toast: { message: string; type: ToastType };
 };
 
 const initialState: AppSliceState = {
@@ -43,6 +49,7 @@ const initialState: AppSliceState = {
     title: "",
     fileType: "PDF",
     loading: false,
+    toast: { message: "", type: "error" },
 };
 
 const appSlice = createSlice({
@@ -95,6 +102,9 @@ const appSlice = createSlice({
         setFileType: (state, action) => {
             state.fileType = action.payload;
         },
+        setToast: (state, action) => {
+            state.toast = action.payload;
+        },
     },
     extraReducers: (builder) => {
         // builder.addCase(authThunkAction.userLogin.fulfilled, (state, action) => {
@@ -107,13 +117,10 @@ const appSlice = createSlice({
 });
 
 export const appThunkAction = {
-    // userLogin: createAsyncThunk(
-    //     "authSlice/user-login",
-    //     async (props: { email: string, password: string }, api) => {
-    //         const res = await apiClient.post<WBResponse<LoginRes>>(apiRoutes.POST_LOGIN, props);
-    //         return processRes(res, api);
-    //     }
-    // ),
+    userLogin: createAsyncThunk("authSlice/create-user", async (props: { email: string; password: string }, api) => {
+        const res = await apiClient.post<WBResponse<{}>>(apiRoutes.CREATE_USER, props);
+        return processRes(res, api);
+    }),
 };
 
 export const appMiddleware = createListenerMiddleware();

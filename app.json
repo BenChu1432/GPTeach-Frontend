@@ -21,7 +21,9 @@
       "infoPlist": {
         "CFBundleURLTypes": [
           {
-            "CFBundleURLSchemes":["com.googleusercontent.apps.668733472630-2qvodlp7q7tbqhrdhlf5vkagnlmu49mg"]
+            "CFBundleURLSchemes": [
+              "com.googleusercontent.apps.668733472630-2qvodlp7q7tbqhrdhlf5vkagnlmu49mg"
+            ]
           }
         ]
       }
@@ -38,7 +40,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "32407851-a098-4317-b4ec-58bab9122178"
+        "projectId": "ad04fdc4-87e3-44ac-803c-138cbf6a8821"
       }
     }
   }
