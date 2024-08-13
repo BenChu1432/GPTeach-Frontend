@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Modal, StyleSheet, Pressable, Button } fr
 import React, { useEffect, useState } from "react";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import fontSize from "../config/fontSize";
-import { MultipleSelectList } from "react-native-dropdown-select-list";
+import MultipleSelectList from "../components/react-native-dropdown-select-list/components/MultipleSelectList";
 import { postOpenai } from "../api/OpenaiResource";
 import { useAppDispatch, useAppSelector } from "../redux/app/hooks";
 import appSlice from "../redux/slices/appSlice";
@@ -25,7 +25,7 @@ export default function CustomizedFormScreen({ navigation }: { navigation: Navig
         <View style={styles.container}>
             <View style={styles.subContainer}>
                 <MultipleSelectList
-                    setSelected={(val) => setSelected(val)}
+                    setSelected={(val: any) => setSelected(val)}
                     data={formNotes}
                     notFoundText={"No such an item can be found. Feel free to report it to us."}
                     label={"Selected Items"}
