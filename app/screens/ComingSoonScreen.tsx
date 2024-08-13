@@ -1,34 +1,27 @@
-import {Platform, StyleSheet, View} from "react-native";
-import Lottie from "lottie-react-native"
-import React from 'react';
+import { Platform, StyleSheet, View } from "react-native";
+import Lottie from "lottie-react-native";
 
-export default function ComingSoonScreen(){
-    const comingSoonJSON=require("../../assets/animations/animation_comingSoon.json")
-    return(
+export default function ComingSoonScreen() {
+    const comingSoonJSON = require("../../assets/animations/animation_comingSoon.json");
+    return (
         <View style={styles.container}>
-            <Lottie
-                autoPlay
-                loop
-                key={Platform.select({android: "androidKey", default: undefined})}
-                source={comingSoonJSON}
-                style={styles.animation}
-            />
+            <Lottie autoPlay loop key={Platform.select({ android: "androidKey", default: undefined })} source={comingSoonJSON} style={styles.animation} />
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         justifyContent: "center",
         alignItems: "center",
-        height:"100%",
-        width:"100%",
-        backgroundColor:"white"
+        height: "100%",
+        width: "100%",
+        backgroundColor: "white",
     },
-    animation:{
+    animation: {
         display: "flex",
-        backgroundColor:"white",
+        backgroundColor: "white",
         height: 380,
         width: 380,
-    }
-})
+    },
+});

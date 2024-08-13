@@ -7,12 +7,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppButton from "../components/AppButton";
 import fontSize from "../config/fontSize";
 import Cross from "./Cross";
-import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
-import Animated, { SharedValue, useAnimatedStyle, useSharedValue, withSpring, withTiming } from "react-native-reanimated";
-import { useEffect, useState } from "react";
+import { SubscriptionOption } from "../data/dto";
 
 export default ({
-    openPaymentSheet,
     planName,
     price,
     limitlessExercises,
@@ -25,8 +22,7 @@ export default ({
     headerBottomColor,
     buttonColor,
 }: {
-    openPaymentSheet: () => Promise<void>;
-    planName: string;
+    planName: SubscriptionOption;
     price: number;
     limitlessExercises: boolean;
     limitlessPDFConversions: boolean;
@@ -40,15 +36,10 @@ export default ({
 }) => {
     const { getAndroidNavigationBarHeight } = useDeviceSpecificMeasurements();
 
-    const handleOnPress = () => {
-        if (planName !== "FREEMIUM") {
-            openPaymentSheet();
-        }
-    };
+    const handleOnPress = () => {};
 
     return (
         <View style={[styles.card, { paddingBottom: getAndroidNavigationBarHeight() }]}>
-            {/* <View style={styles.cardHeader}> */}
             <View></View>
             <LinearGradient colors={[headerTopColor, headerBottomColor]} style={styles.cardHeader} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}>
                 <View style={styles.rightOrb}></View>
@@ -124,7 +115,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     card: {
-        // position: "absolute",
         shadowColor: "#000000",
         shadowOpacity: 0.8,
         shadowRadius: 2,
@@ -133,9 +123,11 @@ const styles = StyleSheet.create({
             width: 1,
         },
         height: 620,
-        width: 320,
+        width: 320, // This controls the width of the card
         elevation: 1,
         borderRadius: 30,
+        marginLeft: "auto", // Center the card horizontally
+        marginRight: "auto", // Center the card horizontally
     },
     rightOrb: {
         height: 25,

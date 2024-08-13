@@ -31,7 +31,7 @@ export default function DrawerContent(props: Props) {
     const dispatch = useDispatch();
     const handleFeedbackOnPress = async () => {
         try {
-            await Linking.openURL("mailto:englishgpteach@gmail.com");
+            await Linking.openURL("mailto:englishgpteach@gmail.com?subject=Feedback&body=Message");
         } catch (e) {
             alert("Cannot open mails");
             console.log(e);

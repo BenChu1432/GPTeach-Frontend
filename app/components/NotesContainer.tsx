@@ -1,16 +1,11 @@
-import { FlatList, Image, LogBox, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import tenses from "../data/library/grammar/tenses";
+import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import fontSize from "../config/fontSize";
-import { FontAwesome, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { TapGestureHandler, State } from "react-native-gesture-handler";
 import DoubleClick from "react-native-double-tap";
 import Popover, { PopoverMode, PopoverPlacement } from "react-native-popover-view";
 import PopoverMessage from "./PopoverMessage";
 import { Route } from "../data/enum/enum";
-import { useDispatch } from "react-redux";
 import { useAppDispatch } from "../redux/app/hooks";
 import appSlice from "../redux/slices/appSlice";
 import { ParamListBase, NavigationProp } from "@react-navigation/native";

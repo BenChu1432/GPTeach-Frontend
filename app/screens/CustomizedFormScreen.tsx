@@ -26,7 +26,6 @@ export default function CustomizedFormScreen({ navigation }: { navigation: Navig
             <View style={styles.subContainer}>
                 <MultipleSelectList
                     setSelected={(val) => setSelected(val)}
-                    // placeholder={route.params.paramKey}
                     data={formNotes}
                     notFoundText={"No such an item can be found. Feel free to report it to us."}
                     label={"Selected Items"}

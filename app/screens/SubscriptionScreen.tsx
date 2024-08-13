@@ -6,9 +6,10 @@ import fontSize from "../config/fontSize";
 import SubscriptionPlan from "../components/SubscriptionPlan";
 import { useSharedValue } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
+import { SubscriptionOption } from "../data/dto";
 
 type SubscriptionPlan = {
-    planName: string;
+    planName: SubscriptionOption;
     price: number;
     limitlessExercises: boolean;
     limitlessAccessToModelAnswers: boolean;
@@ -65,22 +66,10 @@ const data: SubscriptionPlan[] = [
 
 export default function SubscriptionScreen() {
     const width = Dimensions.get("window").width;
-    const [loading, setLoading] = useState(false);
-    const freemiumPressed = useSharedValue(false);
-    const freemiumOffset = useSharedValue(-130);
-    const standardPressed = useSharedValue(false);
-    const standardOffset = useSharedValue(-160);
-    const premiumPressed = useSharedValue(false);
-    const premiumOffset = useSharedValue(-190);
-    const { initializePaymentSheet, openPaymentSheet } = useStripeSubscriptionService(setLoading);
-
-    useEffect(() => {
-        initializePaymentSheet();
-    }, []);
 
     return (
         <ScrollView style={styles.screen}>
-            <View style={{ position: "absolute", right: 0, backgroundColor: "red", height: "100%", width: 50 }}></View>
+            <View style={{ position: "absolute", right: 0, height: "100%", width: 50 }}></View>
             <View style={styles.container}>
                 <View style={styles.sloganContainer}>
                     <Text style={styles.chooseYourPlan}>CHOOSE YOUR PLAN</Text>
@@ -91,10 +80,10 @@ export default function SubscriptionScreen() {
                         <Text style={styles.cancelAnytime}>Cancel anytime.</Text>
                     </View>
                 </View>
-                <View style={{ height: 800, width: "100%", display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
+                <View style={{ height: 800, width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <Carousel
                         width={width}
-                        style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                        style={{ justifyContent: "center", alignItems: "center" }}
                         height={700}
                         data={data}
                         scrollAnimationDuration={1000}
@@ -111,7 +100,6 @@ export default function SubscriptionScreen() {
                                 accessToNewFeaturesFirst={item.accessToNewFeaturesFirst}
                                 removalOfWatermarks={item.removalOfWatermarks}
                                 adFreeExperience={item.adFreeExperience}
-                                openPaymentSheet={openPaymentSheet}
                                 headerTopColor={item.headerTopColor} // Also corrected these lines
                                 headerBottomColor={item.headerBottomColor}
                                 buttonColor={item.buttonColor}

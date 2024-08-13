@@ -30,3 +30,5 @@ export type TokenPayload = {
 };
 
 export type ToastType = "success" | "info" | "error" | "warning";
+
+export type SubscriptionOption = "PREMIUM" | "FREEMIUM" | "STANDARD";
