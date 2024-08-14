@@ -97,12 +97,18 @@ export default ({
                     </View>
                 </View>
                 <AppButton
+                    disabled={true}
                     marginTop={30}
                     onPress={handleOnPress}
                     color={buttonColor}
                     word={planName === "FREEMIUM" ? "Already Subscribed" : "Subscribe Now"}
                     widthPercentage={90}
                 ></AppButton>
+                {planName !== "FREEMIUM" && (
+                    <Text style={{ fontSize: 12, textAlign: "center" }}>
+                        You can't upgrade to {planName} in the app. {"\n"}We know, it's not ideal.
+                    </Text>
+                )}
             </View>
         </View>
     );

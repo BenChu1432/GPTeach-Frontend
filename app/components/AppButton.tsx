@@ -4,6 +4,7 @@ import Colors from "../config/colors";
 import { LinearGradient } from "expo-linear-gradient";
 
 type Props = {
+    disabled?: boolean;
     style?: StyleProp<ViewStyle>;
     color: string;
     word: string;
@@ -15,8 +16,8 @@ type Props = {
 
 function Button(props: Props) {
     return (
-        <View style={[styles.bar, props.style, { backgroundColor: props.color, width: `${props.widthPercentage}%`, marginTop: props.marginTop }]}>
-            <TouchableOpacity style={styles.touchable} onPress={props.onPress}>
+        <View style={[styles.bar, props.style, { backgroundColor: props.disabled ? "grey" : props.color, width: `${props.widthPercentage}%`, marginTop: props.marginTop }]}>
+            <TouchableOpacity disabled={props.disabled} style={styles.touchable} onPress={props.onPress}>
                 {props.color === "white" ? <Text style={[styles.barTitles, { color: props.wordColor }]}>{props.word}</Text> : <Text style={styles.barTitles}>{props.word}</Text>}
             </TouchableOpacity>
         </View>
