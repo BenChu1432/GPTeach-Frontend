@@ -26,15 +26,13 @@
         "ios": {
             "supportsTablet": false,
             "bundleIdentifier": "com.benluchu.Eng.AI.Assistant",
-            "minimumOsVersion": "16.0",
             "infoPlist": {
                 "CFBundleURLTypes": [
                     {
                         "CFBundleURLSchemes": ["com.googleusercontent.apps.668733472630-2qvodlp7q7tbqhrdhlf5vkagnlmu49mg"]
                     }
                 ]
-            },
-            "deploymentTarget": "16.0"
+            }
         },
         "android": {
             "adaptiveIcon": {
