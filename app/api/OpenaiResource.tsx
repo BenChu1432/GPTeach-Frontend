@@ -2,13 +2,13 @@ import axios from "axios";
 import * as FileSystem from "expo-file-system";
 import { Buffer } from "buffer";
 import { openPDF } from "../utility/pdfOpener";
-import localhost from "../config/localhost";
-import apiClient from "../axios/apiClient";
+
+const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
 export const createPDF = async (pdfContent: string, setError: (error: boolean) => void, topic: string, questionType: string) => {
     try {
         // Post content to the server and get the PDF binary data back
-        const response = await axios.post(`http://${localhost}:3000/openai/create-pdf/${topic}/${questionType}`, { pdfContent }, { responseType: "arraybuffer" });
+        const response = await axios.post(`${BACKEND_URL}/openai/create-pdf/${topic}/${questionType}`, { pdfContent }, { responseType: "arraybuffer" });
 
         // Convert the binary data to a Base64 encoded string
         const base64 = Buffer.from(response.data, "binary").toString("base64");
@@ -42,7 +42,7 @@ export const createPDF = async (pdfContent: string, setError: (error: boolean) =
 
 export const getTesting = (setOpenaiResponse: (openaiResponse: string) => void) => {
     axios
-        .get(`http://${localhost}:3000/openai/testing`)
+        .get(`${BACKEND_URL}/openai/testing`)
         .then((res) => {
             console.log(res.data);
             setOpenaiResponse(res.data);
@@ -68,10 +68,10 @@ export const postOpenai = (
     if (subRoute === "allMixed(noCorrelatives)") {
         subRoute = "allMixedNoCorrelatives";
     }
-    console.log(`http://${localhost}:3000/openai/${subRoute}/${selectedTheme}/${selectedLevelOfVocabulary}/${questionType}/${numOfQuestions}/${numOfParagraphs}`);
+    console.log(`${BACKEND_URL}/openai/${subRoute}/${selectedTheme}/${selectedLevelOfVocabulary}/${questionType}/${numOfQuestions}/${numOfParagraphs}`);
     console.log("selected:" + selected);
     axios
-        .post(`http://${localhost}:3000/openai/${subRoute}/${selectedTheme}/${selectedLevelOfVocabulary}/${questionType}/${numOfQuestions}/${numOfParagraphs}`, { selected })
+        .post(`${BACKEND_URL}/openai/${subRoute}/${selectedTheme}/${selectedLevelOfVocabulary}/${questionType}/${numOfQuestions}/${numOfParagraphs}`, { selected })
         .then((res) => {
             setOpenaiResponse(res.data);
             setIsNotes(false);
@@ -96,7 +96,7 @@ export const postOpenaiInstruction = (
     setError: (error: boolean) => void
 ) => {
     axios
-        .post(`http://${localhost}:3000/openai/instruction/${selectedTheme}/${selectedLevelOfVocabulary}/${questionType}/${numOfQuestions}/${numOfParagraphs}`, {
+        .post(`${BACKEND_URL}/openai/instruction/${selectedTheme}/${selectedLevelOfVocabulary}/${questionType}/${numOfQuestions}/${numOfParagraphs}`, {
             selected,
             previousContent,
         })
@@ -124,7 +124,7 @@ export const postOpenaiNotes = (
     setError: (error: boolean) => void
 ) => {
     axios
-        .post(`http://${localhost}:3000/openai/notes/${category}/${selectedTheme}/${selectedLevelOfVocabulary}/${questionType}/${numOfQuestions}/${numOfParagraphs}/${language}`, {
+        .post(`${BACKEND_URL}/openai/notes/${category}/${selectedTheme}/${selectedLevelOfVocabulary}/${questionType}/${numOfQuestions}/${numOfParagraphs}/${language}`, {
             selected,
         })
         .then((res) => {
@@ -151,7 +151,7 @@ export const postOpenaiModelAnswers = (
     setError: (error: boolean) => void
 ) => {
     axios
-        .post(`http://${localhost}:3000/openai/modelAnswers/${selectedTheme}/${selectedLevelOfVocabulary}/${questionType}/${numOfQuestions}/${numOfParagraphs}`, {
+        .post(`${BACKEND_URL}/openai/modelAnswers/${selectedTheme}/${selectedLevelOfVocabulary}/${questionType}/${numOfQuestions}/${numOfParagraphs}`, {
             selected,
             previousContent,
         })

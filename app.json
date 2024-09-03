@@ -1,47 +1,55 @@
 {
-  "expo": {
-    "scheme": "gpteach",
-    "name": "Eng_AI_Assistant",
-    "slug": "Eng_AI_Assistant",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.benluchu.Eng.AI.Assistant",
-      "infoPlist": {
-        "CFBundleURLTypes": [
-          {
-            "CFBundleURLSchemes": [
-              "com.googleusercontent.apps.668733472630-2qvodlp7q7tbqhrdhlf5vkagnlmu49mg"
+    "expo": {
+        "plugins": [
+            [
+                "expo-build-properties",
+                {
+                    "ios": {
+                        "deploymentTarget": "16.0"
+                    }
+                }
             ]
-          }
-        ]
-      }
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.benluchu.Eng_AI_Assistant"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "ad04fdc4-87e3-44ac-803c-138cbf6a8821"
-      }
+        ],
+        "scheme": "gpteach",
+        "name": "GPTeach",
+        "slug": "Eng_AI_Assistant",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": false,
+            "bundleIdentifier": "com.benluchu.Eng.AI.Assistant",
+            "minimumOsVersion": "16.0",
+            "infoPlist": {
+                "CFBundleURLTypes": [
+                    {
+                        "CFBundleURLSchemes": ["com.googleusercontent.apps.668733472630-2qvodlp7q7tbqhrdhlf5vkagnlmu49mg"]
+                    }
+                ]
+            },
+            "deploymentTarget": "16.0"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            },
+            "package": "com.benluchu.Eng_AI_Assistant"
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "ad04fdc4-87e3-44ac-803c-138cbf6a8821"
+            }
+        }
     }
-  }
 }
